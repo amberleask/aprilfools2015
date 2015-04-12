@@ -1,0 +1,289 @@
+body {
+        background-color:#ff80a7;
+        overflow-y:hidden;
+        margin: 0;
+        font: normal 13px/1.3 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;}
+
+body, a:hover {cursor: url(images/cursor.png), progress !important;}
+
+.map_image { display: block; width: 375px; height: 625px; position: fixed; background-position: 0 0 0 0; background-repeat: no-repeat;    background-position: left; }
+	.map_image .map_link { display: block; position: absolute; text-indent: -999em; overflow: hidden; }
+	.map_image #map_link_0 { width: 76px; height: 78px; top: 11px; left: 1px; }
+	.map_image #map_link_1 { width: 52px; height: 78px; top: 11px; left: 82px; }
+	.map_image #map_link_2 { width: 77px; height: 78px; top: 11px; left: 138px; }
+	.map_image #map_link_3 { width: 66px; height: 78px; top: 11px; left: 221px; }
+	.map_image #map_link_4 { width: 72px; height: 79px; top: 10px; left: 292px; }
+	.map_image #map_link_5 { width: 74px; height: 69px; top: 94px; left: 3px; }
+	.map_image #map_link_6 { width: 51px; height: 70px; top: 93px; left: 83px; }
+	.map_image #map_link_7 { width: 79px; height: 69px; top: 94px; left: 137px; }
+	.map_image #map_link_8 { width: 70px; height: 70px; top: 94px; left: 219px; }
+	.map_image #map_link_9 { width: 70px; height: 72px; top: 93px; left: 293px; }
+	.map_image #map_link_10 { width: 73px; height: 71px; top: 167px; left: 4px; }
+	.map_image #map_link_11 { width: 54px; height: 70px; top: 168px; left: 81px; }
+	.map_image #map_link_12 { width: 77px; height: 72px; top: 167px; left: 139px; }
+	.map_image #map_link_13 { width: 70px; height: 71px; top: 168px; left: 220px; }
+	.map_image #map_link_14 { width: 71px; height: 70px; top: 169px; left: 292px; }
+	.map_image #map_link_15 { width: 73px; height: 69px; top: 241px; left: 4px; }
+	.map_image #map_link_16 { width: 54px; height: 69px; top: 242px; left: 81px; }
+	.map_image #map_link_17 { width: 77px; height: 69px; top: 241px; left: 138px; }
+	.map_image #map_link_18 { width: 71px; height: 69px; top: 241px; left: 219px; }
+	.map_image #map_link_19 { width: 70px; height: 67px; top: 243px; left: 293px; }
+	.map_image #map_link_20 { width: 59px; height: 76px; top: 315px; left: 5px; }
+	.map_image #map_link_21 { width: 72px; height: 78px; top: 312px; left: 67px; }
+	.map_image #map_link_22 { width: 73px; height: 77px; top: 312px; left: 142px; }
+	.map_image #map_link_23 { width: 69px; height: 77px; top: 312px; left: 219px; }
+	.map_image #map_link_24 { width: 71px; height: 77px; top: 312px; left: 291px; }
+	.map_image #map_link_25 { width: 58px; height: 72px; top: 394px; left: 5px; }
+	.map_image #map_link_26 { width: 72px; height: 72px; top: 394px; left: 67px; }
+	.map_image #map_link_27 { width: 73px; height: 71px; top: 394px; left: 141px; }
+	.map_image #map_link_28 { width: 69px; height: 72px; top: 392px; left: 218px; }
+	.map_image #map_link_29 { width: 72px; height: 71px; top: 393px; left: 290px; }
+	.map_image #map_link_30 { width: 59px; height: 73px; top: 468px; left: 5px; }
+	.map_image #map_link_31 { width: 74px; height: 72px; top: 469px; left: 65px; }
+	.map_image #map_link_32 { width: 73px; height: 73px; top: 468px; left: 142px; }
+	.map_image #map_link_33 { width: 69px; height: 73px; top: 468px; left: 219px; }
+	.map_image #map_link_34 { width: 70px; height: 74px; top: 467px; left: 291px; }
+	.map_image #map_link_35 { width: 58px; height: 80px; top: 542px; left: 5px; }
+	.map_image #map_link_36 { width: 74px; height: 80px; top: 542px; left: 64px; }
+	.map_image #map_link_37 { width: 73px; height: 80px; top: 542px; left: 141px; }
+	.map_image #map_link_38 { width: 72px; height: 80px; top: 542px; left: 216px; }
+
+	::-webkit-scrollbar {
+	width: 20px;
+	height: 7px;
+	background-color:#ffffff;
+	}
+	::-webkit-scrollbar-button:start:decrement,
+	::-webkit-scrollbar-button:end:increment {display: block;}
+	::-webkit-scrollbar-button:vertical:start:increment,
+	::-webkit-scrollbar-button:vertical:end:decrement {display: none;}
+	::-webkit-scrollbar-button:end:increment 
+        {background-image:url(images/arrowdown.png);
+	background-repeat: no-repeat;background-position:center;
+        -webkit-box-shadow: inset 0 0 16px rgba(214,214,214,0.9);}
+
+	::-webkit-scrollbar-button:start:decrement 
+	{background-image: url(images/arrowup.png);
+	background-repeat: no-repeat;background-position:center;
+        -webkit-box-shadow: inset 0 0 16px rgba(214,214,214,0.9);}
+	::-webkit-scrollbar-thumb {
+	background-color:transparent;
+        background:url(images/flashing.gif); 
+        background-size: 400% auto;
+	border-left:0px solid #E5E5E5;
+	border-right:0px solid #E5E5E5;
+	border-bottom:0px solid #E5E5E5;
+	border-top:0px solid #E5E5E5;
+	border-radius:0%;
+	}
+	#scrollbardolliecrave {
+	width:96px;
+	height:20px;
+	position: fixed;    
+	left: 0px;    
+	bottom: 0px;
+	}
+	::-webkit-scrollbar-track {
+        background:url(images/track.png); 
+	border-radius:0%;
+	}
+
+            .start_menu, .application_icons, .start_bar .start_button .logo, .start_bar .tray .calendar, .start_menu {
+                background-image: url('images/ui.png');
+                margin: auto;
+            }
+       
+        
+            .start_bar .start_button .logo {
+                width: 16px;
+                height: 14px;
+                background-position: -633px -103px;
+            }
+        
+            .application_icons {
+                height: 16px;
+                width: 84px;
+                background-position: -565px -69px;
+            }
+        
+            .start_bar .tray .calendar {
+                height: 16px;
+                width: 16px;
+                background-position: -632px -87px;
+            }
+        
+            .start_menu {
+                height: 383px;
+                width: 168px;
+                background-position: 0px 0px;
+            }
+        
+           
+        
+        
+          
+            .start_bar {
+                position: fixed;
+                background-color: #ffa4d3;
+                bottom: 0;
+                height: 28px;
+                width: 100%;
+                z-index: 4;
+            }
+        
+            .start_menu {
+                position: fixed;
+                z-index: 3;
+                bottom: 28px;
+                display: none;
+            }
+        
+            .start_bar .top_border {
+                border-bottom: 1px solid rgb(255,255,255);
+                border-top: 1px solid rgb(223,223,223);
+            }
+        
+            .start_bar .start_button {
+                float: left;
+                border-top: 2px solid white;
+                border-left: 2px solid white;
+                border-bottom: 2px solid gray;
+                border-right: 2px solid gray;
+                height: 18px;
+                width: 54px;
+                margin-left: 2px;
+                margin-top: 2px;
+            }
+        
+            .sb_click {
+                border-bottom: 2px solid white !important;
+                border-right: 2px solid white !important;
+                border-top: 2px solid gray !important;
+                border-left: 2px solid gray !important;
+            }
+        
+            .start_bar .start_button .text{
+                float: right;
+                display: inline;
+                margin-right: 4px;
+                line-height: 18px;
+                font-weight: bold;
+            }
+        
+            .start_bar .start_button .logo{
+                float: left;
+                margin-top: 2px;
+                margin-left: 2px;
+            }
+        
+            .start_bar .big_seperator {
+                float: left;
+                border-left: 1px solid rgb(128,128,128);
+                border-right: 1px solid rgb(255,255,255);
+                height: 22px;
+                margin-top: 2px;
+                margin-left: 2px;
+            }
+        
+            .start_bar .small_seperator {
+                float: left;
+                border-left: 1px solid rgb(255,255,255);
+                border-top: 1px solid rgb(255,255,255);
+                border-right: 1px solid rgb(128,128,128);
+                border-bottom: 1px solid rgb(128,128,128);
+                background-color: rgb(192,192,192);
+                width: 1px;
+                height: 16px;
+                margin-top: 4px;
+                margin-left: 2px;
+            }
+        
+            .start_bar .application_icons {
+                float: left;
+                margin-top: 5px;
+                margin-left: 7px;
+                margin-right: 7px;
+            }
+        
+            .start_bar .tray {
+                float: right;
+                border-top: 1px solid rgb(128,128,128);
+                border-left: 1px solid rgb(128,128,128);
+                border-bottom: 1px solid rgb(255,255,255);
+                border-right: 1px solid rgb(255,255,255);
+                height: 18px;
+                width: 79px;
+                margin-right: 5px;
+                margin-top: 2px;
+            }
+        
+            .start_bar .tray .time {
+                line-height: 18px;
+                float: right;
+                font-size: 10px; 
+                margin-right: 10px;
+            }
+        
+            .start_bar .tray .calendar {
+                float: left;
+                margin-top: 1px;
+                margin-left: 3px;
+            }
+
+
+
+a {
+text-decoration:none;
+color:#ffffff;
+}
+ 
+a:hover{color:#800080;background:url(images/pink.gif);}
+
+
+
+#container{
+width:500px;
+height:500px;
+margin:auto;
+margin-top:0px;
+z-index:99999;
+background-color:transparent;
+}
+
+
+
+.dragme{position:relative;}
+
+            .msn {
+                z-index:1;
+                position:absolute;
+                left:990px;
+                top:70px;
+            }
+
+
+            #ie {
+                z-index:2;
+                position:absolute;
+                left:200px;
+                top:20px;
+            }
+
+            .clippy {
+                z-index:2;
+                position:absolute;
+                right:30px;
+                bottom:30px;
+            }
+            .bb {
+                z-index:2;
+                position:absolute;
+                right:150px;
+                bottom:20px;
+            }

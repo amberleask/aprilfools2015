@@ -1,0 +1,417 @@
+﻿<html>
+
+<!--    
+
+      
+
+ix.                             _.;
+ xxx.                        ,,xx"
+ "xxxb,                    .;xxxx
+  "xxxxx,                ,;xxxxx
+   "x    ',--""""""""-_,;    xx'  _----------_
+     :   '            .      "  ,'    PIKA    ',
+      i'                  ,^'   |   PIKACHUU~  |
+     :                     :     '-.________.-'
+     |                     |     / 
+     |    __         __    |    /
+     |  .'  ;      .'  ',  |   
+      --       _        -- {
+     |  |    (_^__)    |  |;     
+      --      '--'      --;'
+      '-..____________..-
+       
+
+-->
+
+<head>
+
+<title>Omfg party like it's 1999!!!!!!!!!!!!!!!!!!!!1</title>
+
+<link rel=stylesheet TYPE="text/css" HREF="style.css"> 
+<link rel="shortcut icon" href="images/favicon.png">
+<script type="text/javascript" src="dragme.js"></script>
+<script type="text/javascript" src="titlescroll.js"></script>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="win98.js"></script>
+
+
+
+<!-- Click Fireworks -->
+<script type="text/javascript">
+// <![CDATA[
+var sparks=75;
+var speed=33;
+var bangs=5;
+var colours=new Array('#03f', '#f03', '#0e0', '#93f', '#0cf', '#f93', '#f0c');
+ 
+var intensity=new Array();
+var Xpos=new Array();
+var Ypos=new Array();
+var dX=new Array();
+var dY=new Array();
+var stars=new Array();
+var decay=new Array();
+var timers=new Array();
+var swide=800;
+var shigh=600;
+var sleft=sdown=0;
+var count=0;
+ 
+function addLoadEvent(funky) {
+  var oldonload=window.onload;
+  if (typeof(oldonload)!='function') window.onload=funky;
+  else window.onload=function() {
+    if (oldonload) oldonload();
+    funky();
+  }
+}
+ 
+addLoadEvent(clicksplode);
+ 
+function clicksplode() { if (document.getElementById) {
+  var i, j;
+  window.onscroll=set_scroll;
+  window.onresize=set_width;
+  document.onclick=eksplode;
+  set_width();
+  set_scroll();
+  for (i=0; i<bangs; i++) for (j=sparks*i; j<sparks+sparks*i; j++) {
+    stars[j]=createDiv('*', 13);
+    document.body.appendChild(stars[j]);
+  }
+}}
+ 
+function createDiv(char, size) {
+  var div, sty;
+  div=document.createElement('div');
+  sty=div.style;
+  sty.font=size+'px monospace';
+  sty.position='absolute';
+  sty.backgroundColor='transparent';
+  sty.visibility='hidden';
+  sty.zIndex='101';
+  div.appendChild(document.createTextNode(char));
+  return (div);
+}
+ 
+function bang(N) {
+  var i, Z, A=0;
+  for (i=sparks*N; i<sparks*(N+1); i++) {
+    if (decay[i]) {
+      Z=stars[i].style;
+      Xpos[i]+=dX[i];
+      Ypos[i]+=(dY[i]+=1.25/intensity[N]);
+      if (Xpos[i]>=swide || Xpos[i]<0 || Ypos[i]>=shigh+sdown || Ypos[i]<0) decay[i]=1;
+      else {
+        Z.left=Xpos[i]+'px';
+        Z.top=Ypos[i]+'px';
+      }
+      if (decay[i]==15) Z.fontSize='7px';
+      else if (decay[i]==7) Z.fontSize='2px';
+      else if (decay[i]==1) Z.visibility='hidden';
+      decay[i]--;
+    }
+        else A++;
+  }
+  if (A!=sparks) timers[N]=setTimeout('bang('+N+')', speed);
+}
+ 
+function eksplode(e) {
+  var x, y, i, M, Z, N;
+  set_scroll();
+  y=(e)?e.pageY:event.y+sdown;
+  x=(e)?e.pageX:event.x+sleft;
+  N=++count%bangs;
+  M=Math.floor(Math.random()*3*colours.length);
+  intensity[N]=5+Math.random()*4;
+  for (i=N*sparks; i<(N+1)*sparks; i++) {
+    Xpos[i]=x;
+    Ypos[i]=y-5;
+    dY[i]=(Math.random()-0.5)*intensity[N];
+    dX[i]=(Math.random()-0.5)*(intensity[N]-Math.abs(dY[i]))*1.25;
+    decay[i]=16+Math.floor(Math.random()*16);
+    Z=stars[i].style;
+    if (M<colours.length) Z.color=colours[i%2?count%colours.length:M];
+    else if (M<2*colours.length) Z.color=colours[count%colours.length];
+    else Z.color=colours[i%colours.length];
+    Z.fontSize='13px';
+    Z.visibility='visible';
+  }
+  clearTimeout(timers[N]);
+  bang(N);
+}
+ 
+function set_width() {
+  var sw_min=999999;
+  var sh_min=999999;
+  if (document.documentElement && document.documentElement.clientWidth) {
+    if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+    if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+  }
+  if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+    if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+    if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+  }
+  if (document.body.clientWidth) {
+    if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+    if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+  }
+  if (sw_min==999999 || sh_min==999999) {
+    sw_min=800;
+    sh_min=600;
+  }
+  swide=sw_min-7;
+  shigh=sh_min-7;
+}
+ 
+function set_scroll() {
+  if (typeof(self.pageYOffset)=='number') {
+    sdown=self.pageYOffset;
+    sleft=self.pageXOffset;
+  }
+  else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+    sdown=document.body.scrollTop;
+    sleft=document.body.scrollLeft;
+  }
+  else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+    sleft=document.documentElement.scrollLeft;
+    sdown=document.documentElement.scrollTop;
+  }
+  else {
+    sdown=0;
+    sleft=0;
+  }
+}
+// ]]>
+</script>
+ 
+</head>
+
+<body>
+
+
+
+<!-- No Right Click -->
+<script language=JavaScript>
+<!--
+
+//Disable right mouse click Script
+//By Maximus (maximus@nsimail.com) w/ mods by DynamicDrive
+//For full source code, visit http://www.dynamicdrive.com
+
+var message="THEIF!!!!!!! Do not steal my beautiful website!!!!!!!!!!!!!!!!!";
+
+///////////////////////////////////
+function clickIE4(){
+if (event.button==2){
+alert(message);
+return false;
+}
+}
+
+function clickNS4(e){
+if (document.layers||document.getElementById&&!document.all){
+if (e.which==2||e.which==3){
+alert(message);
+return false;
+}
+}
+}
+
+if (document.layers){
+document.captureEvents(Event.MOUSEDOWN);
+document.onmousedown=clickNS4;
+}
+else if (document.all&&!document.getElementById){
+document.onmousedown=clickIE4;
+}
+
+document.oncontextmenu=new Function("alert(message);return false")
+
+// --> 
+</script>
+
+
+
+<!-- Annoying Alerts -->
+<script language="JavaScript">
+//
+alert ("DO NOT ENTER THIS WEBSITE IF U DON'T LIKE SAILOR MOON!!!")
+</script>
+<script language="JavaScript">
+//
+alert ("I MEAN IT!!! U ALSO HAVE 2 LIKE NEOPETS n POKEMON 2")
+</script>
+
+
+
+<!-- Autoplaying MIDI -->
+<audio controls autoplay loop hidden="hidden">
+<source src="moonlightdensetsu.mp3" type="audio/mpeg">
+</audio>
+
+
+
+<!-- Falling Stars -->
+<marquee behavior=scroll direction=down scrollamount=1 scrolldelay=37 height=526 style='position:absolute; left:68%; top:89px; width:30; height:526px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=4 scrolldelay=25 height=629 style='position:absolute; left:74%; top:156px; width:30; height:629px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=1 scrolldelay=38 height=615 style='position:absolute; left:60%; top:18px; width:30; height:615px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=2 scrolldelay=37 height=584 style='position:absolute; left:30%; top:200px; width:30; height:584px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=2 scrolldelay=29 height=587 style='position:absolute; left:14%; top:133px; width:30; height:587px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=2 scrolldelay=34 height=682 style='position:absolute; left:6%; top:186px; width:30; height:682px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=6 scrolldelay=37 height=605 style='position:absolute; left:34%; top:146px; width:30; height:605px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=1 scrolldelay=32 height=562 style='position:absolute; left:42%; top:128px; width:30; height:562px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=6 scrolldelay=49 height=511 style='position:absolute; left:55%; top:41px; width:30; height:511px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=6 scrolldelay=13 height=532 style='position:absolute; left:65%; top:6px; width:30; height:532px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=3 scrolldelay=8 height=502 style='position:absolute; left:85%; top:72px; width:30; height:502px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=2 scrolldelay=49 height=563 style='position:absolute; left:66%; top:115px; width:30; height:563px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=2 scrolldelay=37 height=630 style='position:absolute; left:73%; top:135px; width:30; height:630px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=4 scrolldelay=18 height=602 style='position:absolute; left:42%; top:14px; width:30; height:602px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=2 scrolldelay=24 height=609 style='position:absolute; left:54%; top:176px; width:30; height:609px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=1 scrolldelay=42 height=667 style='position:absolute; left:46%; top:0px; width:30; height:667px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=6 scrolldelay=24 height=503 style='position:absolute; left:42%; top:132px; width:30; height:503px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=5 scrolldelay=16 height=517 style='position:absolute; left:79%; top:114px; width:30; height:517px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=1 scrolldelay=25 height=599 style='position:absolute; left:47%; top:86px; width:30; height:599px;'><img src=images/star.gif border=0></marquee>
+<marquee behavior=scroll direction=down scrollamount=5 scrolldelay=38 height=581 style='position:absolute; left:39%; top:66px; width:30; height:581px;'><img src=images/star.gif border=0></marquee>
+
+
+
+<!-- Icon Image Map -->
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Begin
+function CaricaFoto(img){
+  foto1= new Image();
+  foto1.src=(img);
+  Controlla(img);
+}
+function Controlla(img){
+  if((foto1.width!=0)&&(foto1.height!=0)){
+    viewFoto(img);
+  }
+  else{
+    funzione="Controlla('"+img+"')";
+    intervallo=setTimeout(funzione,20);
+  }
+}
+function viewFoto(img){
+  largh=foto1.width+0;
+  altez=foto1.height+0;
+  stringa="width="+largh+",height="+altez;
+  finestra=window.open(img,"",stringa);
+}
+//  End -->
+</script>
+<div class="map_image" style="background-image: url('images/icons.png');">
+	<a class="map_link" id="map_link_0" title="" href="http://www.theverge.com/2014/8/29/6082199/msn-messenger-shutting-down-15-years-history" target="_blank">MSN</a>
+	<a class="map_link" id="map_link_1" title="" href="http://glitter-graphics.com" target="_blank">art</a>
+	<a class="map_link" id="map_link_2" title="" href="javascript:CaricaFoto('images/dolphin.jpg')">dolphin</a>
+	<a class="map_link" id="map_link_3" title="" href="javascript:CaricaFoto('images/theme.jpg')">hobbes</a>
+	<a class="map_link" id="map_link_4" title="" href="https://www.tumblr.com/theme/37082" target="_blank">win98</a>
+	<a class="map_link" id="map_link_5" title="" href="http://www.solitr.com" target="_blank">solitaire</a>
+	<a class="map_link" id="map_link_6" title="" href="http://make8bitart.com" target="_blank">paint</a>
+	<a class="map_link" id="map_link_7" title="" href="javascript:CaricaFoto('images/google.jpg')">sites</a>
+	<a class="map_link" id="map_link_8" title="" href="javascript:CaricaFoto('images/aoe.jpg')">aoe</a>
+	<a class="map_link" id="map_link_9" title="" href="http://www.dollzmania.com" target="_blank">dollz</a>
+	<a class="map_link" id="map_link_10" title="" href="http://lilbub.com" target="_blank">cat</a>
+	<a class="map_link" id="map_link_11" title="" href="javascript:CaricaFoto('images/goose.gif')">duckz</a>
+	<a class="map_link" id="map_link_12" title="" href="javascript:CaricaFoto('images/disney.jpg')">disney</a>
+	<a class="map_link" id="map_link_13" title="" href="http://www.theverge.com/2015/3/17/8230631/microsoft-is-killing-off-the-internet-explorer-brand" target="_blank">ie</a>
+	<a class="map_link" id="map_link_14" title="" href="javascript:CaricaFoto('images/word.png')">documents</a>
+	<a class="map_link" id="map_link_15" title="" href="javascript:CaricaFoto('images/starcraft.jpeg')">starcraft</a>
+	<a class="map_link" id="map_link_16" title="" href="http://www.rapidtables.com/tools/notepad.htm" target="_blank">notepad</a>
+	<a class="map_link" id="map_link_17" title="" href="javascript:CaricaFoto('images/sims.jpg')">sims</a>
+	<a class="map_link" id="map_link_18" title="" href="javascript:CaricaFoto('images/network.gif')">network</a>
+	<a class="map_link" id="map_link_19" title="" href="javascript:CaricaFoto('images/aol.jpeg')">aol</a>
+	<a class="map_link" id="map_link_20" title="" href="javascript:CaricaFoto('images/bugs.jpg')">bunny</a>
+	<a class="map_link" id="map_link_21" title="" href="javascript:CaricaFoto('images/psp.jpg')">psp</a>
+	<a class="map_link" id="map_link_22" title="" href="https://www.youtube.com/watch?v=h7t52KkmOMA" target="_blank">british</a>
+	<a class="map_link" id="map_link_23" title="" href="javascript:CaricaFoto('images/links.jpg')">links</a>
+	<a class="map_link" id="map_link_24" title="" href="javascript:CaricaFoto('images/maru.jpg')">recycle</a>
+	<a class="map_link" id="map_link_25" title="" href="javascript:CaricaFoto('images/norton.jpg')">antivirus</a>
+	<a class="map_link" id="map_link_26" title="" href="http://malware.wikia.com/wiki/BonziBUDDY" target="_blank">bonzai</a>
+	<a class="map_link" id="map_link_27" title="" href="https://www.fanfiction.net/anime/Sailor-Moon" target="_blank">sailormoon</a>
+	<a class="map_link" id="map_link_28" title="" href="http://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions" target=_"blank">pokemon</a>
+	<a class="map_link" id="map_link_29" title="" href="http://tinysubversions.com/game/spelunky/" target="_blank">game</a>
+	<a class="map_link" id="map_link_30" title="" href="javascript:CaricaFoto('images/alien.gif')">virus</a>
+	<a class="map_link" id="map_link_31" title="" href="javascript:CaricaFoto('images/msnemoticons.png')">emoticons</a>
+	<a class="map_link" id="map_link_32" title="" href="http://clione.halfmoon.jp/hatoful-boyfriend/english.html" target="_blank">hatoful</a>
+	<a class="map_link" id="map_link_33" title="" href="javascript:CaricaFoto('images/computer.jpg')">computer</a>
+	<a class="map_link" id="map_link_34" title="" href="https://www.youtube.com/watch?v=JGHWVAN_yQg" target="_blank">virus2</a>
+	<a class="map_link" id="map_link_35" title="" href="https://www.aim.com" target="_blank">aim</a>
+	<a class="map_link" id="map_link_36" title="" href="http://www.canada.ca/en/" target="_blank">canada</a>
+	<a class="map_link" id="map_link_37" title="" href="javascript:CaricaFoto('images/civ.jpg')">civ</a>
+	<a class="map_link" id="map_link_38" title="" href="http://www.sailormoonfans.com/sailor_moon_music" target="_blank">midi</a>
+</div>
+
+
+<div id="container" align="center">
+
+
+
+<!-- Clippy & Bonzai Buddy -->
+<div class="clippy"><img src="images/clippy.png"></div>
+<div class="bb"><img src="images/bonzaibuddy.png"></div>
+
+
+
+<!-- MSN Messenger -->
+<div class="msn"><img src="images/msn.png" class="dragme"></div>
+
+
+<!-- Internet Exporer & Website -->
+<div class="dragme" id="ie" style="width:808px; height:581px; background-image:url('images/ie.png');
+background-position:fixed; background-repeat:no-repeat;"><div style="position:absolute; left:6px; top:120px; width:796px; height:425px; text-align:left; background-image:url('images/starbg.gif'); background-repeat:repeat; color:#FF69B4; padding-top:10px; font-family:comic sans ms; font-size:28px; overflow-y:scroll">
+
+<center><img src="images/sailormoon3.gif"> <img src="images/welcome.gif"> <img src="images/sailormoon3.gif"><br>
+
+<font color=#ff0000>~</font><font color=#f2240c>~</font><font color=#e64718>~</font><font color=#da6924>~</font><font color=#ce8930>t</font><font color=#c2a73c>O</font> <font color=#aad655>m</font><font color=#9de861>Y</font> <font color=#85fc79>w</font><font color=#79fe85>E</font><font color=#6dfc91>b</font><font color=#61f49d>S</font><font color=#55e7aa>i</font><font color=#48d6b6>T</font><font color=#3cc0c2>e</font><font color=#30a6ce>~</font><font color=#2489da>~</font><font color=#1869e6>~</font><font color=#0c47f2>~</font><br>
+
+<img src="images/blinkie.gif"> <img src="images/a.gif" border=0><img src="images/m.gif" border=0><img src="images/b.gif" border=0><img src="images/e.gif" border=0><img src="images/r.gif" border=0>
+
+<img src="images/gemini.gif"><br><br>
+
+WELCOEM TO MY SITE I AM FROM CANADA 100% CANADIAN GRRRL <img src="noimage.png"><br>
+<img src="images/canada.gif"><br><br>
+
+<img src="images/divider.gif"><br><br>
+
+THINGS I LIKE!!!!!!!!!!!!!!!!!!!!!!!!!
+
+SAILOR MOON <img src="images/sailormoon1.gif"> <img src="images/sailormoon2.gif">, pokemon <img src="images/pokemon1.gif"> <img src="noimage.png">, neopets (plz join neopets i need more neopoint plzz help me) <img src="images/neopet1.gif"> <img src="images/neopet2.gif">, I also like spice grils and my cats <img src="images/dance.gif"><br><br>
+
+<img src="images/divider2.gif"><br>
+
+U can add me on <a href="http://xanga.com" target="_blank">xAnGa</a> or <a href="http://livejournal.com" target="_blank">lIvEjOuRnAl</a> if u want.........<br><br>
+
+<img src="images/bye.gif">
+
+<br><br>ɹɹɹɹǝqɯɐ 666⇂ ʇɥƃıɹʎdoɔ Zןoן ʍou ʇxǝʇ uʍop ǝpısdn ƃɯɯɯɯo
+
+</center>
+
+</div></div></div>
+
+
+<!-- Task Bar -->
+<div class="bottom"></div>
+<div class="start_menu"></div>
+<div class="start_bar">
+<div class="top_border"></div>
+<div class="start_button">
+<span class="logo"></span>
+<span class="text">Start</span></div>
+<span class="big_seperator"></span>
+<span class="small_seperator"></span>
+<span class="application_icons"></span>
+<span class="big_seperator"></span>
+<img src="images/traymsn.png" style="margin-top:2px; margin-left:4px;"> <img src="images/trayie.png" style="margin-top:2px;">
+<span class="small_seperator"></span>
+<div class="tray">
+<span class="calendar"></span>
+<span class="time" id="showClock">00:00 AM</span>
+</div>
+</div>
+</div>
+
+</body>
+</html>
